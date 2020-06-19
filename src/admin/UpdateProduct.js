@@ -28,10 +28,10 @@ const UpdateProduct = ({match}) => {
     stock,
     categories,
     category,
-    loading,      // Make use of loading
+    // loading,      // Make use of loading
     error,
     createdProduct,
-    isRedirecting,    // WORK ON THIS LATER TO REDIRECT USER after 2 seconds of successfully adding a product
+    // isRedirecting,    // WORK ON THIS LATER TO REDIRECT USER after 2 seconds of successfully adding a product
     formData,
   } = values;
 

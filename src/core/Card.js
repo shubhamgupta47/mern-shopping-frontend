@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import ImageHelper from "./helper/ImageHelper";
 import { Redirect } from "react-router-dom";
-import { addItemToCart } from "./helper/cartHelper";
+import { addItemToCart, removeItemFromCart } from "./helper/cartHelper";
 
-const Card = ({ product, addToCart = true, removeFromCart = false }) => {
+const Card = ({
+  product,
+  addToCart = true,
+  removeFromCart = false,
+  setReload,
+  reload,
+}) => {
   const [redirect, setRedirect] = useState(false);
 
   const cardTitle = product ? product.name : "Title Not Available";
@@ -42,7 +48,10 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
       removeFromCart && (
         <div className="col-12">
           <button
-            onClick={() => {}}
+            onClick={() => {
+              removeItemFromCart(product._id);
+              setReload(!reload);
+            }}
             className="btn btn-block btn-outline-danger mt-2 mb-2"
           >
             Remove from cart
@@ -55,6 +64,7 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
     <div className="card text-white bg-dark border border-info ">
       <div className="card-header lead">{cardTitle}</div>
       <div className="card-body">
+        {getRedirect(redirect)}
         <div className="rounded border border-success p-2">
           <ImageHelper product={product} />
         </div>
