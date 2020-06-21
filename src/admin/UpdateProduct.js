@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Base from "../core/Base";
 import { Link } from "react-router-dom";
-import { getCategories, getProduct, updateProduct } from "./helper/adminapicall";
+import {
+  getCategories,
+  getProduct,
+  updateProduct,
+} from "./helper/adminapicall";
 import { isAuthenticated } from "../auth/helper";
 
-const UpdateProduct = ({match}) => {
+const UpdateProduct = ({ match }) => {
   const { user, token } = isAuthenticated();
   const [values, setValues] = useState({
     name: "",
@@ -35,20 +39,19 @@ const UpdateProduct = ({match}) => {
     formData,
   } = values;
 
-
   const preload = (productId) => {
     getProduct(productId).then((data) => {
       if (data.error) {
-        setValues(val => ({ ...val, error: data.error }));
+        setValues((val) => ({ ...val, error: data.error }));
       } else {
-        setValues(val => ({
+        setValues((val) => ({
           ...val,
           name: data.name,
           description: data.description,
           price: data.price,
           category: data.category._id,
           stock: data.stock,
-          formData: new FormData()
+          formData: new FormData(),
         })); // callback added to resolve lint error of exhaustive depths
       }
     });
@@ -57,13 +60,12 @@ const UpdateProduct = ({match}) => {
   const preloadCategories = () => {
     getCategories().then((data) => {
       if (data.error) {
-        setValues(val => ({ ...val, error: data.error }));
+        setValues((val) => ({ ...val, error: data.error }));
       } else {
-        setValues({categories: data, formData: new FormData() }); // callback added to resolve lint error of exhaustive depths
+        setValues({ categories: data, formData: new FormData() }); // callback added to resolve lint error of exhaustive depths
       }
     });
   };
-
 
   useEffect(() => {
     preloadCategories();
@@ -81,7 +83,7 @@ const UpdateProduct = ({match}) => {
         } else {
           setValues({
             ...values,
-            createdProduct: data.name
+            createdProduct: data.name,
           });
         }
       })
@@ -96,19 +98,25 @@ const UpdateProduct = ({match}) => {
 
   const successMessage = () => {
     return (
-      <div className="alert alert-success mt-3" style={{display: createdProduct ? "" : "none"}}>
+      <div
+        className="alert alert-success mt-3"
+        style={{ display: createdProduct ? "" : "none" }}
+      >
         <h5>{createdProduct} updated successfully</h5>
       </div>
-    )
+    );
   };
 
   const warningMessage = () => {
     return (
-      <div className="alert alert-danger mt-3" style={{display: error ? "" : "none"}}>
+      <div
+        className="alert alert-danger mt-3"
+        style={{ display: error ? "" : "none" }}
+      >
         <h5>{error}</h5>
       </div>
-    )
-  }
+    );
+  };
 
   const createProductForm = () => (
     <form className="mt-3">
@@ -208,4 +216,3 @@ const UpdateProduct = ({match}) => {
 };
 
 export default UpdateProduct;
-

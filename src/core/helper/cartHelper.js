@@ -36,3 +36,10 @@ export const removeItemFromCart = (productId) => {
   }
   return cart;
 };
+
+export const emptyCart = (next) => {
+  if (window) {
+    localStorage.removeItem("cart");
+    next();
+  }
+};
