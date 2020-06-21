@@ -8,6 +8,7 @@ run `npm install`
 
 Create a .env file with `REACT_APP_BACKEND = https://your-api-path/api`
 
+**\*** If your are using Stripe payment, make sure to add `REACT_APP_STRIPE_PUBLISHABLE_KEY` in your env file.
 
 ### `npm start`
 
